@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{html,js,vue}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        altone: ["Altone Trial", "sans-serif"]
+      }
+    },
   },
   plugins: [],
 }
