@@ -1,6 +1,6 @@
 <template>
-<button class="bg-[#f3f3f3] text-black w-60 h-28 p-4 rounded-2xl text-left">
-    <div class="flex items-center justify-end space-x-2">
+<button class="bg-[#f3f3f3] text-black w-64 h-fit p-4 flex flex-col justify-between rounded-2xl text-left snap-start snap-always">
+    <div class="flex items-center justify-end self-end space-x-2">
         <div :class="{
             'bg-[#EE9090]': status == -1,
             'bg-[#FFA500]': status == 0,
@@ -8,8 +8,11 @@
         }" class="-mt-1 w-4 h-4 rounded-full"></div>
         <p class="font-semibold">{{ label }}</p>
     </div>
-    <p class="text-lg">{{title}}</p>
-    <p class="text-sm mt-2">{{div}} division</p>
+    <img :src="img" class="w-full min-h-0 max-h-40 my-3 object-cover" >
+    <div>
+        <p class="text-lg">{{title}}</p>
+        <p class="text-sm mt-2">{{div}} division</p>
+    </div>
 </button>
 </template>
 
@@ -18,7 +21,9 @@ export default {
     props: {
         title: String,
         status: Number,
-        div: String
+        div: String,
+        img: String,
+        research: Boolean
     },
     computed: {
         label() {
