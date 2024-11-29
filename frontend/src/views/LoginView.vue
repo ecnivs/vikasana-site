@@ -1,5 +1,22 @@
 <script setup>
 import VikasanaIcon from '@/components/VikasanaIcon.vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const email = ref('');
+const password = ref('');
+
+const handleLogin = () => {
+        if (email.value && password.value) {
+          console.log('Email:', email.value);
+          console.log('Password:', password.value);
+          alert('Login successful!');
+          router.push("/dashboard")
+        } else {
+          alert('Please fill in all fields.');
+        }
+      };
 
 </script>
 
@@ -50,25 +67,6 @@ import VikasanaIcon from '@/components/VikasanaIcon.vue';
 </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-      };
-    },
-    methods: {
-      handleLogin() {
-        if (this.email && this.password) {
-          console.log('Email:', this.email);
-          console.log('Password:', this.password);
-          alert('Login successful!');
-        } else {
-          alert('Please fill in all fields.');
-        }
-      },
-    },
-  };
   </script>
   
   <style scoped>

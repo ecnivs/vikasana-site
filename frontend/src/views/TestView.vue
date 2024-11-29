@@ -2,10 +2,11 @@
 </script>
 
 <template>
-  </template>
+  <div></div>
+</template>
   
   <script>
   export default {
-    name: 'Test'
+    name: 'TestView'
   }
   </script>

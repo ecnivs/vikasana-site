@@ -1,14 +1,38 @@
 <script setup>
 import DivisionUpdates from '@/components/DivisionUpdates.vue';
-import Navbar from '@/components/Navbar.vue';
+import NavBar from '@/components/NavBar.vue';
 import ProjectTile from '@/components/ProjectTile.vue';
 
+let isDragging = false;
+let startX;
+let scrollLeft;
+
+// Desktop drag handling
+const startDrag = (event) => {
+  const container = event.target;
+  if (!container) return;
+  isDragging = true;
+  startX = event.clientX || event.touches[0].clientX;
+  scrollLeft = container.scrollLeft;
+};
+
+const drag = (event) => {
+  if (!isDragging) return;
+  const container = event.target;
+  const x = event.clientX || event.touches[0].clientX;
+  const walk = (x - startX) * 3;
+  container.scrollLeft = scrollLeft - walk;
+};
+
+const stopDrag = () => {
+  isDragging = false;
+};
 </script>
 
 <template>
     <div class="min-h-screen min-w-screen bg-black text-white font-sans">
       <!-- Navbar -->
-      <Navbar />
+      <NavBar :name="'Sara Laufeyson'" :points="'512'" />
   
       <!-- Main Content -->
       <div class="px-6 md:pl-24 md:pr-16 py-6 font-altone">
@@ -20,13 +44,24 @@ import ProjectTile from '@/components/ProjectTile.vue';
           </div>
           <!-- Division Updates -->
           
-          <DivisionUpdates class="row-span-2 custom-scrollbar" />
+          <DivisionUpdates
+          class="row-span-2 custom-scrollbar" 
+          @mousedown="startDrag"
+          @mousemove="drag"
+          @mouseup="stopDrag"
+          @mouseleave="stopDrag" />
           
           <!-- Projects -->
           <div class="col-span-2">
             <h2 class="text-2xl mb-4">Assigned to You</h2>
             <div class="flex justify-between items-start">
-              <div class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[15vw] sm:gap-x-[2vw] md:gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory">
+              <div
+              class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[15vw] sm:gap-x-[2vw] md:gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory scroll-smooth" 
+              @mousedown="startDrag"
+              @mousemove="drag"
+              @mouseup="stopDrag"
+              @mouseleave="stopDrag">
+
                 <ProjectTile v-for="project in ongoing" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
                 <ProjectTile v-for="project in yetToStart" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
               </div>
@@ -39,7 +74,13 @@ import ProjectTile from '@/components/ProjectTile.vue';
   
         <div class="mt-8 w-full">
           <h2 class="text-2xl mb-4">Completed Projects</h2>
-          <div class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory" >
+          <div 
+          class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory scroll-smooth"
+          @mousedown="startDrag"
+          @mousemove="drag"
+          @mouseup="stopDrag"
+          @mouseleave="stopDrag">
+
               <ProjectTile v-for="project in completed" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
           </div>
         </div>
@@ -47,7 +88,12 @@ import ProjectTile from '@/components/ProjectTile.vue';
         
         <div class="mt-8">
           <h2 class="text-2xl mb-4">Document Archives/Research</h2>
-          <div class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory" >
+          <div class="min-w-64 h-[360px] py-2 flex flex-col flex-wrap overflow-x-auto gap-x-[4vw] gap-y-5 custom-scrollbar snap-x snap-mandatory scroll-smooth"
+          @mousedown="startDrag"
+          @mousemove="drag"
+          @mouseup="stopDrag"
+          @mouseleave="stopDrag">
+
               <ProjectTile v-for="project in research" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
           </div>
         </div>
@@ -57,7 +103,9 @@ import ProjectTile from '@/components/ProjectTile.vue';
   
   <script>
   export default {
-    name: "Dashboard",
+
+    name: "DashboardView",
+
     data() {
       return {
         // Example projects data from the server
