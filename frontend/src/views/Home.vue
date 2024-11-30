@@ -1,5 +1,8 @@
+<script setup>
+</script>
+
 <template>
-  <div class="home">
+  <div>
     <h1>Welcome to Vikasana Members Portal</h1>
   </div>
 </template>
@@ -8,4 +11,4 @@
 export default {
   name: 'HomePage'
 }
-</script> 
+</script>
