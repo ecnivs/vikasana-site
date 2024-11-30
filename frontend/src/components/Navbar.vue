@@ -4,7 +4,7 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
   name : String,
-  points : Number
+  points : String
 })
 
 

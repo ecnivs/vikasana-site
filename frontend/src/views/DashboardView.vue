@@ -4,6 +4,21 @@ import DivisionUpdates from '@/components/DivisionUpdates.vue';
 import NavBar from '@/components/NavBar.vue';
 import ProjectTile from '@/components/ProjectTile.vue';
 import { useRouter } from 'vue-router';
+import { useProjectStore } from '@/stores/projects';
+import { onMounted, computed } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
+const projectStore = useProjectStore();
+onMounted(()=> {
+  projectStore.fetchProjects();
+})
+
+const yetToStart = computed(() => projectStore.yetToStart);
+const ongoing = computed(() => projectStore.ongoing);
+const completed = computed(() => projectStore.completed);
+const research = computed(() => projectStore.research);
+
 
 const router = useRouter();
 
@@ -41,7 +56,7 @@ const handleProjectClick = (projectId) => {
 <template>
     <div class="min-h-screen min-w-screen bg-black text-white font-sans">
       <!-- Navbar -->
-      <NavBar :name="'Sara Laufeyson'" :points="'512'" />
+      <NavBar :name="authStore.name" :points="'512'" />
   
       <!-- Main Content -->
       <div class="px-6 md:pl-24 md:pr-16 py-6 font-altone">
@@ -108,61 +123,30 @@ const handleProjectClick = (projectId) => {
     </div>
   </template>
   
-  <script>
-  export default {
-
-    name: "DashboardView",
-
-    data() {
-      return {
-        // Example projects data from the server
-        projects: [
-          { id: 1, title: 'Project 1', status: -1, div: 'Onyx', research: false, img:"" },
-          { id: 2, title: 'Project 2', status: -1, div: 'Onyx', research: false, img:"" },
-          { id: 3, title: 'Project 3', status: -1, div: 'Onyx', research: false, img:"" },
-          { id: 4, title: 'Project 4', status: 0, div: 'Titan', research: false, img:"Images/projectThumbnail.png" },
-          { id: 5, title: 'Project 5', status: 1, div: 'Alpha', research: false, img:"Images/projectThumbnail.png" },
-          { id: 6, title: 'Project 6', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 7, title: 'Project 7', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 8, title: 'Project 8', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 9, title: 'Project 9', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 10, title: 'Project 10', status: 1, div: 'Alpha', research: true, img:"Images/projectThumbnail.png" },
-          { id: 11, title: 'Project 11', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 12, title: 'Project 12', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 13, title: 'Project 13', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 14, title: 'Project 14', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 15, title: 'Project 15', status: 1, div: 'Alpha', research: true, img:"" },
-          { id: 16, title: 'Project 16', status: 1, div: 'Alpha', research: false, img:"Images/projectThumbnail.png" },
-          { id: 17, title: 'Project 17', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 18, title: 'Project 18', status: 1, div: 'Alpha', research: false, img:"" },
-          { id: 19, title: 'Project 19', status: 0, div: 'Beta', research: true, img:"Images/projectThumbnail.png" },
-          { id: 20, title: 'Project 20', status: 1, div: 'Gamma', research: true, img:"" },
-          { id: 20, title: 'Project 20', status: 1, div: 'Gamma', research: true, img:"" },
-          { id: 20, title: 'Project 20', status: -1, div: 'Gamma', research: true, img:"" },
-          { id: 20, title: 'Project 20', status: -1, div: 'Gamma', research: true, img:"" },
-          { id: 20, title: 'Project 20', status: -1, div: 'Gamma', research: true, img:"" },
-          { id: 20, title: 'Project 20', status: -1, div: 'Gamma', research: true, img:"" }
-        ]
-      };
-    },
-
-    computed: {
-      // Segregate projects based on their status
-      yetToStart() {
-        return this.projects.filter(project => project.status === -1 && project.research === false);
-      },
-      ongoing() {
-        return this.projects.filter(project => project.status === 0 && project.research === false);
-      },
-      completed() {
-        return this.projects.filter(project => project.status === 1 && project.research === false);
-      },
-      research() {
-        return this.projects.filter(project => project.research === true);
-      }
-    }
-  };
-  </script>
-  
-<style scoped>
-</style>
+          <!-- [
+          { 'id': 1, 'title': 'Project 1', 'status': -1, 'div': 'Onyx', 'research': false, 'img':"" },
+          { 'id': 2, 'title': 'Project 2', 'status': -1, 'div': 'Onyx', 'research': false, 'img':"" },
+          { 'id': 3, 'title': 'Project 3', 'status': -1, 'div': 'Onyx', 'research': false, 'img':"" },
+          { 'id': 4, 'title': 'Project 4', 'status': 0, 'div': 'Titan', 'research': false, 'img':"Images/projectThumbnail.png" },
+          { 'id': 5, 'title': 'Project 5', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"Images/projectThumbnail.png" },
+          { 'id': 6, 'title': 'Project 6', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 7, 'title': 'Project 7', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 8, 'title': 'Project 8', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 9, 'title': 'Project 9', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 10, 'title': 'Project 10', 'status': 1, 'div': 'Alpha', 'research': true, 'img':"Images/projectThumbnail.png" },
+          { 'id': 11, 'title': 'Project 11', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 12, 'title': 'Project 12', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 13, 'title': 'Project 13', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 14, 'title': 'Project 14', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 15, 'title': 'Project 15', 'status': 1, 'div': 'Alpha', 'research': true, 'img':"" },
+          { 'id': 16, 'title': 'Project 16', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"Images/projectThumbnail.png" },
+          { 'id': 17, 'title': 'Project 17', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 18, 'title': 'Project 18', 'status': 1, 'div': 'Alpha', 'research': false, 'img':"" },
+          { 'id': 19, 'title': 'Project 19', 'status': 0, 'div': 'Beta', 'research': true, 'img':"Images/projectThumbnail.png" },
+          { 'id': 20, 'title': 'Project 20', 'status': 1, 'div': 'Gamma', 'research': true, 'img':"" },
+          { 'id': 20, 'title': 'Project 20', 'status': 1, 'div': 'Gamma', 'research': true, 'img':"" },
+          { 'id': 20, 'title': 'Project 20', 'status': -1, 'div': 'Gamma', 'research': true, 'img':"" },
+          { 'id': 20, 'title': 'Project 20', 'status': -1, 'div': 'Gamma', 'research': true, 'img':"" },
+          { 'id': 20, 'title': 'Project 20', 'status': -1, 'div': 'Gamma', 'research': true, 'img':"" },
+          { 'id': 20, 'title': 'Project 20', 'status': -1, 'div': 'Gamma', 'research': true, 'img':"" }
+          ] -->
