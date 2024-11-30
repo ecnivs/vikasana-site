@@ -1,7 +1,11 @@
 <script setup>
+import AddButton from '@/components/AddButton.vue';
 import DivisionUpdates from '@/components/DivisionUpdates.vue';
 import NavBar from '@/components/NavBar.vue';
 import ProjectTile from '@/components/ProjectTile.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 let isDragging = false;
 let startX;
@@ -27,6 +31,11 @@ const drag = (event) => {
 const stopDrag = () => {
   isDragging = false;
 };
+
+const handleProjectClick = (projectId) => {
+  router.push({ name: 'ProjectView', params: { id: projectId } });
+}
+
 </script>
 
 <template>
@@ -62,12 +71,10 @@ const stopDrag = () => {
               @mouseup="stopDrag"
               @mouseleave="stopDrag">
 
-                <ProjectTile v-for="project in ongoing" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
-                <ProjectTile v-for="project in yetToStart" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
+                <ProjectTile v-for="project in ongoing" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
+                <ProjectTile v-for="project in yetToStart" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
               </div>
-              <button class="min-w-20 -mt-12 md:-mt-11 mx-5 md:mx-16">
-                <img src="/images/add b.svg" class="h-full" >
-              </button>
+              <AddButton class="-mt-12 md:-mt-11 mx-5 md:mx-16" />
             </div>
           </div>
         </div>
@@ -81,7 +88,7 @@ const stopDrag = () => {
           @mouseup="stopDrag"
           @mouseleave="stopDrag">
 
-              <ProjectTile v-for="project in completed" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
+              <ProjectTile v-for="project in completed" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
           </div>
         </div>
   
@@ -94,7 +101,7 @@ const stopDrag = () => {
           @mouseup="stopDrag"
           @mouseleave="stopDrag">
 
-              <ProjectTile v-for="project in research" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img"/>
+              <ProjectTile v-for="project in research" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
           </div>
         </div>
       </div>

@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Test from "@/views/TestView.vue";
 import Login from "@/views/LoginView.vue";
 import Dashboard from "@/views/DashboardView.vue";
+import ProjectView from "@/views/ProjectView.vue";
+import ProjectUpdateView from "@/views/ProjectUpdateView.vue";
+import UpdatesView from "@/views/UpdatesView.vue";
+import VerifyUpdateView from "@/views/VerifyUpdateView.vue";
 
 const routes = [
     {
@@ -18,6 +22,26 @@ const routes = [
         path: "/dashboard",
         name: "Dashboard",
         component: Dashboard,
+    },
+    {
+        path: "/project/:id",
+        name: "ProjectView",
+        component: ProjectView,
+    },
+    {
+        path: "/project/:id/update",
+        name: "ProjectUpdateView",
+        component: ProjectUpdateView,
+    },
+    {
+        path: "/updates",
+        name: "UpdatesView",
+        component: UpdatesView,
+    },
+    {
+        path: "/updates/verify",
+        name: "VerifyUpdateView",
+        component: VerifyUpdateView,
     },
 ];
 

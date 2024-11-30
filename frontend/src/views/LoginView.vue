@@ -1,22 +1,33 @@
 <script setup>
 import VikasanaIcon from '@/components/VikasanaIcon.vue';
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+import { ref } from 'vue';
 
-const router = useRouter();
 const email = ref('');
 const password = ref('');
+const authStore = useAuthStore();
+const router = useRouter();
 
-const handleLogin = () => {
-        if (email.value && password.value) {
-          console.log('Email:', email.value);
-          console.log('Password:', password.value);
-          alert('Login successful!');
-          router.push("/dashboard")
-        } else {
-          alert('Please fill in all fields.');
-        }
-      };
+
+async function loginUser() {
+  console.log('Login payload:', { email: email.value, password: password.value });
+
+  const response = await fetch('/', {
+    method: 'POST',
+    body: JSON.stringify({ email: email.value, password: password.value }),
+  });
+  const data = await response.json();
+  
+  if (response.ok) {
+    authStore.setUser(data.user, data.token);
+    alert('Login successful!');
+    router.push("/dashboard")
+
+  } else {
+    alert('Login failed!');
+  }
+}
 
 </script>
 
@@ -30,13 +41,12 @@ const handleLogin = () => {
 
       <div class="w-full max-w-lg p-6 px-10 sm:px-20 rounded-lg flex flex-col gap-4 tracking-wider shadow-[0_-5vh_40px_rgba(255,255,255,0.2)] sm:shadow-none">
         <h2 class="text-3xl -ml-4 sm:-ml-8 text-white">Welcome mate,</h2>
-        <form @submit.prevent="handleLogin" class="mt-4 text- flex flex-col gap-6">
+        <form @submit.prevent="loginUser" class="mt-4 text- flex flex-col gap-6">
           <div class="flex flex-col gap-4">
             <div class="mb-4">
               <label for="email" class="block font-medium">Email</label>
               <input
               type="email"
-              id="email"
               v-model="email"
               class="w-full px-4 py-4 mt-3 bg-black rounded-xl ring-white ring-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
@@ -47,7 +57,6 @@ const handleLogin = () => {
             <label for="password" class="block font-medium">Password</label>
             <input
             type="password"
-            id="password"
             v-model="password"
             class="w-full px-4 py-4 mt-3 bg-black rounded-xl ring-white ring-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your password"
@@ -57,8 +66,7 @@ const handleLogin = () => {
         </div>
           <button
             type="submit"
-            class="w-fit px-10 py-2 text-black bg-white rounded-xl font-black text-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
+            class="w-fit px-10 py-2 text-black bg-white rounded-xl font-black text-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
             Login
           </button>
         </form>
