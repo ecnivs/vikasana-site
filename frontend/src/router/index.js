@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Test from "@/views/TestView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/LoginView.vue";
 import Dashboard from "@/views/DashboardView.vue";
 import ProjectView from "@/views/ProjectView.vue";
@@ -8,11 +7,6 @@ import UpdatesView from "@/views/UpdatesView.vue";
 import VerifyUpdateView from "@/views/VerifyUpdateView.vue";
 
 const routes = [
-    {
-        path: "/test",
-        name: "Test",
-        component: Test,
-    },
     {
         path: "/",
         name: "Login",
@@ -46,8 +40,8 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
+});
 
-export default router 
+export default router;
