@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify,session
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db,csrf
 from app.models import UserCreds, ProjectsTable
@@ -28,6 +28,16 @@ def createpro():
         Column('username',String,nullable=False),
         Column('isLeader',Boolean,nullable=False),
         Column('role',String,nullable=False)
+    )
+
+    updates_table = Table(
+        project_table_name+'_updates',
+        metadata,
+        Column('id',Integer,primary_key=True),
+        Column('username',String,nullable=False),
+        Column('update',String,nullable=False),
+        Column('approved',Boolean,nullable=False),
+        Column('percentage',Integer,nullable=False)
     )
 
     metadata.create_all(db.engine)
