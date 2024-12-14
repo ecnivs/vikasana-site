@@ -5,11 +5,13 @@ import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 
 const router = useRouter();
-const addImprove = ref(true)
+const addImprove = ref(true);
+const name = localStorage.getItem("name");
+const points = localStorage.getItem("points");
 
 // Title and Description (static content)
-const name = "Dinesh"
-const title = "Add Updates on Cnast Project - @"+name;
+const member = "Dinesh"
+const title = "Add Updates on Cnast Project - @"+member;
 const task = "String"
 const update = "String"
 const proof = "String"
@@ -26,7 +28,7 @@ const comments = "String"
 
 <template>
     <div class="min-h-screen min-w-screen pb-16 bg-black text-white font-altone ">
-        <NavBar :name="'Sara Laufeyson'" :points="'512'" />
+        <NavBar :name="name" :points="points" />
 
         <div class="flex flex-row-reverse justify-between px-6 md:pl-10 md:pr-16 py-6">
             <p @click="router.push('/updates')" class="h-fit cursor-pointer tracking-wide text-center select-none hover:underline active:text-white/80 transition-all duration-150">Back To Updates</p>
@@ -96,7 +98,7 @@ const comments = "String"
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(270deg, rgba(122, 224, 245, 1) 0%, rgba(133, 187, 246, 1) 28.4%, rgba(140, 159, 247, 1) 50%, rgba(159, 94, 250, 1) 100%);
+    background: linear-gradient(270deg, #EE9090 0%, #EE9090 28.4%, #EE9090 50%, #FFA500 100%);
     border-radius: inherit;
 }
 

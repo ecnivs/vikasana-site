@@ -1,7 +1,11 @@
 <script setup>
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
+        id: Number,
         title: String,
         name: String,
         img: String,
@@ -19,7 +23,7 @@ const props = defineProps({
         <p class="text-lg">{{props.title}}</p>
         <div class="flex items-center justify-between">
             <p class="text-xs mt-2 text-left">{{ props.name }} updates</p>
-            <p class="text-xs mt-2 hover:cursor-pointer hover:underline underline-offset-2 text-right">View more></p>
+            <p class="text-xs mt-2 hover:cursor-pointer hover:underline underline-offset-2 text-right" @click="router.push('/updates/verify')">View more></p>
         </div>
     </div>
 </div>

@@ -64,7 +64,7 @@ const stopDrag = () => {
             @mouseup="stopDrag"
             @mouseleave="stopDrag">
 
-                <ProjectUpdateTile v-for="project in updates" :key="project.id" :title="project.title" :name="project.name" :img="project.img"/>
+                <ProjectUpdateTile v-for="project in updates" :key="project.id" :id="project.id" :title="project.title" :name="project.name" :img="project.img"/>
             </div>
         </div>
         <!-- <div class="mt-8 px-6 md:pl-10 md:pr-16">
