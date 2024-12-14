@@ -48,6 +48,43 @@ curl -X POST -H "Content-Type: application/json" \
 http://127.0.0.1:5000/auth/add_user
 ```
 
+### ADD A MEMBER TO PROJECT (ONLY ADMIN CAN)
+
+```
+ curl -X POST http://127.0.0.1:5000/dashboard/addMemberPro \
+     -H "Content-Type: application/json" \
+     -b cookie.txt \
+     -d '{
+          "project_data_name": "team_project69",
+          "username": "testuser69",
+          "isLeader": false,
+          "role": "Developer-2"
+     }'
+```
+     
+### POST AN UPDATE FOR PROJECT (ONLY MEMBERS OF PROJECT)    
+``` 
+      curl -X POST http://127.0.0.1:5000/dashboard/postUpdate \
+     -H "Content-Type: application/json" \
+     -b cookie.txt \
+     -d '{
+          "project_data_name": "team_project421",
+          "update": "nice_ig",
+          "percentage": 10
+     }'
+```
+     
+### APPROVE THE UPDATE AND INCREMENT PROJECT COMPLETION PERCENTAGE (ONLY PROJECT LEADS AND ADMINS)
+```
+        curl -X UPDATE http://127.0.0.1:5000/dashboard/approveUpdate \
+     -H "Content-Type: application/json" \
+     -b cookie.txt \
+     -d '{
+          "project_data_name": "team_project421",
+          "username":"testuser69"
+     }'
+```
+
 ## 🤝 Contributing
 We appreciate any feedback or code reviews! Feel free to:
 1. Fork the repository
