@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 // Title and Description (static content)
-const name = "Riyan";
+const name = localStorage.getItem("name");
 
 const updates = [
     { id: 1, title: 'Project 1', name: "Dinesh" , img:"" },

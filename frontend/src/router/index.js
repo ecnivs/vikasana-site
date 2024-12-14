@@ -23,7 +23,7 @@ const routes = [
         component: ProjectView,
     },
     {
-        path: "/project/:id/update",
+        path: "/project/:id/update/:title",
         name: "ProjectUpdateView",
         component: ProjectUpdateView,
     },

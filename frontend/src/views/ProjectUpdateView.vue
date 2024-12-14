@@ -1,17 +1,19 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 
-// Title and Description (static content)
-const title = "Add Updates on Cnast Project";
+const title = "Add Updates on " + route.params.title;
+const name = localStorage.getItem("name");
+const points = localStorage.getItem("points");
 
 </script>
 
 <template>
     <div class="min-h-screen min-w-screen pb-16 bg-black text-white font-altone ">
-        <NavBar :name="'Sara Laufeyson'" :points="'512'" />
+        <NavBar :name="name" :points="points" />
 
         <div class="flex flex-row-reverse justify-between px-6 md:pl-10 md:pr-16 py-6">
             <p @click="router.push('/dashboard')" class="h-fit cursor-pointer tracking-wide text-center select-none hover:underline active:text-white/80 transition-all duration-150">Back To Site</p>
