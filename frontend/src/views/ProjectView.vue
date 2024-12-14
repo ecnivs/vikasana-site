@@ -1,24 +1,27 @@
 <script setup>
 import AddButton from '@/components/AddButton.vue';
 import NavBar from '@/components/NavBar.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { fetchProjectDetails } from '@/stores/project'; // Update the import path as needed
 
 const router = useRouter();
+const projectId = useRoute().params.id // Replace with actual project ID or fetch dynamically
+const title = ref('');
+const desc = ref('');
+const tline = ref([]);
 
-// Title and Description (static content)
-const title = "Cnast - mobile application app";
-const desc = "Office ipsum you must be muted. Guys call caught offline happenings problem as want place. Next will is data it's. Idea can live weaponize options hard office native comms awareness. For hanging minimize like player-coach reference nor people asserts.";
-
-// Timeline (reactive data using ref)
-const tline = ref([
-  { date: new Date("2024-04-13"), title: "Project started" },
-  { date: new Date("2024-04-14"), title: "Design phase started" },
-  { date: new Date("2024-04-15"), title: "Development phase started" },
-  { date: new Date("2024-04-16"), title: "Testing phase started" },
-  { date: new Date("2024-04-17"), title: "Project completed" }
-]);
-
+// Fetch project details when the component is mounted
+onMounted(async () => {
+    try {
+        const data = await fetchProjectDetails(projectId);
+        title.value = data.title;
+        desc.value = data.desc;
+        tline.value = data.tline;
+    } catch (error) {
+        console.error("Error loading project details:", error);
+    }
+});
 </script>
 
 <template>
@@ -52,7 +55,7 @@ const tline = ref([
                 </div>
                 <div class="text-lg">
                     <p>{{ item.title }}</p>
-                    <p class="text-white/70">{{ item.date.getDate()+'/'+(item.date.getMonth()+1)+'/'+item.date.getFullYear() }}</p>
+                    <p class="text-white/70">{{ item.date }}</p>
                 </div>
                 <div
                 v-if="index !== tline.length - 1"

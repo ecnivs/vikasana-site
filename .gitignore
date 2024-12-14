@@ -41,6 +41,9 @@ yarn-error.log*
 pnpm-debug.log*
 *.log
 
+backend/instance/
+node_modules/
+
 # Editor directories and files
 .idea/
 .vscode/
