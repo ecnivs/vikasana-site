@@ -85,6 +85,11 @@ http://127.0.0.1:5000/auth/add_user
      }'
 ```
 
+curl -X GET -H "Content-Type: application/json" \
+-b cookie.txt \
+-d '{"project_data_name": "team_project421"}' \
+http://127.0.0.1:5000/dashboard/getupdates
+
 ## 🤝 Contributing
 We appreciate any feedback or code reviews! Feel free to:
 1. Fork the repository

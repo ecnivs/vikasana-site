@@ -37,7 +37,7 @@ def postUpdate():
     try:
         insert_query = project_table_update.insert().values(
             username=username,
-            update=update,
+            update_desc=update,
             approved=0,
             percentage=percentage
         )

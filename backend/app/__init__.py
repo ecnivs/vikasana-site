@@ -39,5 +39,9 @@ def create_app():
     app.register_blueprint(postUpdate_bp,url_prefix='/dashboard')
     from .routes.approveUpdate import approveUpdate_bp
     app.register_blueprint(approveUpdate_bp,url_prefix='/dashboard')
+    from .routes.getUpdates import getupdates_bp, getappupdates_bp, getunappupdates_bp
+    app.register_blueprint(getupdates_bp,url_prefix='/dashboard')
+    app.register_blueprint(getappupdates_bp,url_prefix='/dashboard')
+    app.register_blueprint(getunappupdates_bp,url_prefix='/dashboard')
 
     return app

@@ -35,7 +35,7 @@ def createpro():
         metadata,
         Column('id',Integer,primary_key=True),
         Column('username',String,nullable=False),
-        Column('update',String,nullable=False),
+        Column('update_desc',String,nullable=False),
         Column('approved',Boolean,nullable=False),
         Column('percentage',Integer,nullable=False)
     )

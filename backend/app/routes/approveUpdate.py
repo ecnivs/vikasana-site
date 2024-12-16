@@ -12,18 +12,19 @@ approveUpdate_bp = Blueprint('approveUpdate', __name__)
 def approveUpdate():
     user_id = get_jwt_identity()
     user = UserCreds.query.filter_by(id=user_id).first()
+    username = user.username
 
     if not user:
         return {'msg': 'login da'}, 400
     
     data = request.json
     project_table_name = data.get('project_data_name')
-    username = data.get('username')
+    update_id = data.get('id')
 
     inspector = inspect(db.engine)
     tables = inspector.get_table_names()
     if project_table_name not in tables:
-        return {'err': 'Project table not found', 'available_tables': tables}, 400
+        return {'err': 'Project table not found'}, 400
 
     project_table = Table(project_table_name, db.metadata, autoload_with=db.engine)
 
@@ -32,10 +33,10 @@ def approveUpdate():
 
     project_table_update = Table(project_table_name+"_updates", db.metadata, autoload_with=db.engine)
     
-    percentage = db.session.query(project_table_update).filter_by(username=username).first().percentage
+    percentage = db.session.query(project_table_update).filter_by(id=update_id).first().percentage
     
     try:
-        insert_query = project_table_update.update().where(project_table_update.c.username==username).values(
+        insert_query = project_table_update.update().where(project_table_update.c.id==update_id).values(
             approved=1
         )
         another_one = (
