@@ -43,5 +43,7 @@ def create_app():
     app.register_blueprint(getupdates_bp,url_prefix='/dashboard')
     app.register_blueprint(getappupdates_bp,url_prefix='/dashboard')
     app.register_blueprint(getunappupdates_bp,url_prefix='/dashboard')
+    from .routes.approveProject import approveProject_bp
+    app.register_blueprint(approveProject_bp,url_prefix='/dashboard')
 
     return app

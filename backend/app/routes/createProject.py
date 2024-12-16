@@ -44,7 +44,8 @@ def createpro():
     
     newpro = ProjectsTable(
         projectname=project_table_name,
-        projectProgress=projectProgress
+        projectProgress=projectProgress,
+        approved = 0
     )
 
     try:
