@@ -26,10 +26,12 @@ class ProjectsTable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     projectname = db.Column(db.String(80), unique=True, nullable=False)
     projectProgress = db.Column(db.Integer, nullable=False)
+    approved = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self,projectname, projectProgress):
+    def __init__(self,projectname, projectProgress,approved):
         self.projectname = projectname
         self.projectProgress = projectProgress
+        self.approved = approved
 
 class DemoProjectMembers(db.Model):
     __tablename__ = 'demo_project'

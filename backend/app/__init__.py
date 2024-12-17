@@ -22,8 +22,6 @@ def create_app():
 
     from app.models import UserCreds, ProjectsTable
 
-
-
     with app.app_context():
         db.create_all()
 
@@ -35,5 +33,17 @@ def create_app():
 
     from .routes.createProject import createpro_bp
     app.register_blueprint(createpro_bp, url_prefix='/dashboard')
+    from .routes.addMemPro import addMemPro_bp
+    app.register_blueprint(addMemPro_bp, url_prefix='/dashboard')
+    from .routes.postUpdate import postUpdate_bp
+    app.register_blueprint(postUpdate_bp,url_prefix='/dashboard')
+    from .routes.approveUpdate import approveUpdate_bp
+    app.register_blueprint(approveUpdate_bp,url_prefix='/dashboard')
+    from .routes.getUpdates import getupdates_bp, getappupdates_bp, getunappupdates_bp
+    app.register_blueprint(getupdates_bp,url_prefix='/dashboard')
+    app.register_blueprint(getappupdates_bp,url_prefix='/dashboard')
+    app.register_blueprint(getunappupdates_bp,url_prefix='/dashboard')
+    from .routes.approveProject import approveProject_bp
+    app.register_blueprint(approveProject_bp,url_prefix='/dashboard')
 
     return app
