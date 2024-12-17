@@ -10,6 +10,9 @@ const projectId = useRoute().params.id // Replace with actual project ID or fetc
 const title = ref('');
 const desc = ref('');
 const tline = ref([]);
+const lead = ref(false);
+const name = localStorage.getItem("name");
+const points = localStorage.getItem("points");
 
 // Fetch project details when the component is mounted
 onMounted(async () => {
@@ -18,6 +21,7 @@ onMounted(async () => {
         title.value = data.title;
         desc.value = data.desc;
         tline.value = data.tline;
+        lead.value = data.lead;
     } catch (error) {
         console.error("Error loading project details:", error);
     }
@@ -26,7 +30,7 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-screen min-w-screen bg-black text-white font-altone">
-    <NavBar :name="'Sara Laufeyson'" :points="'512'" />
+    <NavBar :name="name" :points="points" />
 
     <div class="flex flex-row-reverse justify-between px-6 md:pl-24 md:pr-16 py-6">
       <p @click="router.push('/dashboard')" class="h-fit cursor-pointer tracking-wide text-center select-none hover:underline active:text-white/80 transition-all duration-150">Back To Site</p>
@@ -39,7 +43,7 @@ onMounted(async () => {
           <div class="flex justify-between items-end">
             <h2 class="text-2xl pt-8 pb-4 tracking-wider text-nowrap">Time-Line</h2>
 
-            <AddButton />
+            <AddButton :options="[{label: 'Update', link: `${projectId}/update/${title}`}, lead?{label: 'View Updates', link: '/updates'}:null].filter(Boolean)" />
 
           </div>
 

@@ -6,9 +6,9 @@ import ProjectTile from '@/components/ProjectTile.vue';
 import { useRouter } from 'vue-router';
 import { useProjectStore } from '@/stores/projects';
 import { onMounted, computed } from 'vue';
-import { useAuthStore } from '@/stores/auth';
 
-const authStore = useAuthStore();
+const name = localStorage.getItem("name");
+const points = localStorage.getItem("points");
 const projectStore = useProjectStore();
 onMounted(()=> {
   projectStore.fetchProjects();
@@ -56,7 +56,7 @@ const handleProjectClick = (projectId) => {
 <template>
     <div class="min-h-screen min-w-screen bg-black text-white font-sans">
       <!-- Navbar -->
-      <NavBar :name="authStore.name" :points="'512'" />
+      <NavBar :name="name" :points="points" />
   
       <!-- Main Content -->
       <div class="px-6 md:pl-24 md:pr-16 py-6 font-altone">
@@ -89,7 +89,7 @@ const handleProjectClick = (projectId) => {
                 <ProjectTile v-for="project in ongoing" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
                 <ProjectTile v-for="project in yetToStart" :key="project.id" :title="project.title" :status="project.status" :div="project.div" :img="project.img" @click="() => handleProjectClick(project.id)"/>
               </div>
-              <AddButton class="-mt-12 md:-mt-11 mx-5 md:mx-16" />
+              <AddButton class="-mt-12 md:-mt-11 mx-5 md:mx-16" :options="[{ label: 'New Project', link: '/new' }]" />
             </div>
           </div>
         </div>

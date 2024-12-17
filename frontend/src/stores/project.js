@@ -19,8 +19,8 @@ export async function fetchProjectDetails(projectId) {
             }
         );
 
-        const { title, desc, tline } = response.data; // Assuming this is the structure of the response
-        return { title, desc, tline };
+        const { title, desc, tline, lead } = response.data; // Assuming this is the structure of the response
+        return { title, desc, tline, lead };
     } catch (error) {
         if (error.response && error.response.status === 403) {
             throw new Error("Not authorized to view this project.");
