@@ -14,8 +14,9 @@ const errorMessage = ref('');
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 async function loginUser() {
-  errorMessage.value = '';
+  errorMessage.value = '';  // Reset error message at the start
 
+  // Basic form validation
   if (!email.value || !password.value) {
     errorMessage.value = 'Email and password are required.';
     return;
@@ -38,7 +39,8 @@ async function loginUser() {
     const data = await response.json();
 
     if (response.ok) {
-      authStore.setUser(data.name, data.token, data.points);
+      // Store user details in authStore and localStorage
+      authStore.setUser(data.user, data.token);  // Pass points as well
       alert('Login successful!');
       router.push('/dashboard');
     } else {
@@ -50,11 +52,12 @@ async function loginUser() {
 }
 </script>
 
+
 <template>
   <div class="flex flex-col sm:flex-row items-center min-h-screen bg-black text-white font-altone space-x-0">
     
     <div class="sm:min-h-screen sm:w-5/6 md:w-5/12 w-screen h-52 relative overflow-clip">
-      <img src="/Images/constructionlanding.jpg" class="sm:min-h-screen w-full object-cover opacity-30" >
+      <img src="/images/constructionlanding.jpg" class="sm:min-h-screen w-full object-cover opacity-30" >
       <VikasanaIcon class="absolute top-0 mt-7 sm:mx-10" />
     </div>
 

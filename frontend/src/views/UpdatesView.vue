@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 // Title and Description (static content)
-const name = "Riyan";
+const name = localStorage.getItem("name");
 
 const updates = [
     { id: 1, title: 'Project 1', name: "Dinesh" , img:"" },
@@ -64,7 +64,7 @@ const stopDrag = () => {
             @mouseup="stopDrag"
             @mouseleave="stopDrag">
 
-                <ProjectUpdateTile v-for="project in updates" :key="project.id" :title="project.title" :name="project.name" :img="project.img"/>
+                <ProjectUpdateTile v-for="project in updates" :key="project.id" :id="project.id" :title="project.title" :name="project.name" :img="project.img"/>
             </div>
         </div>
         <!-- <div class="mt-8 px-6 md:pl-10 md:pr-16">
