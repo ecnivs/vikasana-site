@@ -1,4 +1,4 @@
-# ViksanaSite
+# Vikasana Site
 > Where Curiosity meets Creation
 
 This repository is dedicated to [Vikasana](https://www.linkedin.com/company/vikasana-research/) members website.
